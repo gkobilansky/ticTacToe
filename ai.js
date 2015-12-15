@@ -36,9 +36,6 @@ var AIAction = function (move) {
             }
         }
 
-        //   console.log(next.board.grid, next.board.filledSquares, 'new game log');
-        next.board.filledSquares = game.board.filledSquares;
-
         var currentPlayer = next.getCurrentPlayer();
         var num = this.movePosition;
 
@@ -94,17 +91,12 @@ var minimax = function (game) {
     var over = game.isTerminal();
     var score = game.score();
 
-
-    // console.log(over, game)
-
     if (over === true) {
         //a terminal game state is the base case
         return score;
 
     } else {
         var gameScore;
-
-        // console.log('game not terminal')
 
         if (game.getCurrentPlayer().symbol === 'X') {
             gameScore = -1000;
@@ -113,8 +105,6 @@ var minimax = function (game) {
         }
 
         var grid = game.board.grid;
-
-
         var availableNextStates = [];
 
         for (var i = 0; i < grid.length; i++) {
@@ -123,24 +113,18 @@ var minimax = function (game) {
                 var action = new AIAction(i);
                 var nextGame = action.applyTo(game);
 
-                console.log(nextGame);
-
                 availableNextStates.push(nextGame);
 
             }
         };
 
-        // console.log(availableNextStates);
 
 
 
         for (var i = 0; i < availableNextStates.length; i++) {
 
             var nextState = availableNextStates[i];
-
             var nextScore = minimax(nextState); //recursive call
-
-            console.log(nextScore);
 
             if (game.getCurrentPlayer().symbol === "X") {
                 // X wants to maximize --> update gameScore iff nextScore is larger

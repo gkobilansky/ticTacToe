@@ -20,7 +20,8 @@ function Game(squares) {
 
 
     this.getCurrentPlayer = function () {
-        return this.players[this.board.filledSquares % 2];
+        var filled = this.board.getFilled();
+        return this.players[filled % 2];
     };
 
     this.play = function (e) {
@@ -47,6 +48,11 @@ function Game(squares) {
 
                 currentPlayer.takeAMasterMove(game, symbol);
 
+                if (this.isTerminal()) {
+                    alert(this.result);
+
+                }
+
 
             }
         }
@@ -54,10 +60,13 @@ function Game(squares) {
 
     this.score = function () {
 
+
+        var filled = this.board.getFilled();
+
         if (this.result === 'X-won') {
-            return 10 - this.board.filledSquares;
+            return 10 - filled;
         } else if (this.result === 'O-won') {
-            return -10 + this.board.filledSquares;
+            return -10 + filled;
         } else {
             return 0;
         }
@@ -70,7 +79,7 @@ function Game(squares) {
      */
     this.isTerminal = function () {
         var i, j, G = this.board.getSymbols();
-        var movesLeft = G.indexOf("");
+        var filled = this.board.getFilled();
 
         //check rows
         for (i = 0; i <= 6; i = i + 3) {
@@ -98,7 +107,7 @@ function Game(squares) {
                 return true;
             }
         }
-        if (this.board.filledSquares > 7 || movesLeft === -1) {
+        if (filled >= 9) {
             //the game is draw
             this.result = "draw"; //update the state result
             return true;

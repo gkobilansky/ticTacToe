@@ -3,7 +3,6 @@ function Board(squares) {
 
     this.squares = squares;
     this.grid = [];
-    this.filledSquares = 0;
     this.gameBoard = document.getElementById("game");
 };
 
@@ -18,7 +17,6 @@ Board.prototype.buildBoard = function () {
 //Updates board on turn
 Board.prototype.update = function (index, symbol) {
     this.grid[index].setSymbol(symbol);
-    this.filledSquares++
 };
 
 //Build HTML of current state
@@ -43,4 +41,18 @@ Board.prototype.getSymbols = function () {
 
     }
     return allSymbols;
+}
+
+// Get filled squares
+Board.prototype.getFilled = function () {
+    var symbols = this.getSymbols();
+    var filled = 0;
+
+    for (var i = 0; i < symbols.length; i++) {
+        if (symbols[i] !== "") {
+            filled++;
+        }
+    }
+
+    return filled;
 }
