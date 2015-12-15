@@ -83,8 +83,6 @@ AIAction.DESCENDING = function (firstAction, secondAction) {
     }
 };
 
-
-
 // minimax algorithm
 var minimax = function (game) {
 
@@ -142,4 +140,4 @@ var minimax = function (game) {
         //backup the minimax value
         return gameScore;
     }
-}
+};

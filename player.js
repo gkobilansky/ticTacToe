@@ -30,8 +30,6 @@ Player.prototype.takeAMasterMove = function (game, symbol) {
         }
     }
 
-    console.log(availableActions);
-
     //sort the enumerated actions list by score
     if (symbol === "X")
     //X maximizes --> descend sort the actions to have the largest minimax at first
@@ -50,8 +48,10 @@ Player.prototype.takeAMasterMove = function (game, symbol) {
 
     game.board.displayBoard();
 
-    console.log('AI turn complete')
+    if (game.isTerminal()) {
+        alert(game.result);
+        window.location.reload();
+        return;
+    }
 
-    // take the game to the next state
-    // this.board.displayBoard();;
 };

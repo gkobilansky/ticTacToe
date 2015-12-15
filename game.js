@@ -28,34 +28,32 @@ function Game(squares) {
 
         if (this.isTerminal()) {
             alert(this.result);
+            window.location.reload();
+            return;
+
+        }
+
+        var currentPlayer = this.getCurrentPlayer();
+        var symbol = currentPlayer.symbol;
+        var game = this;
+
+        if (symbol === 'X') {
+
+            var num = e.target.dataset.num;
+
+            this.board.update(num, symbol);
+
+            this.board.displayBoard();
+
+            this.play();
 
         } else {
 
-            var currentPlayer = this.getCurrentPlayer();
-            var symbol = currentPlayer.symbol;
-            var game = this;
+            currentPlayer.takeAMasterMove(game, symbol);
 
-            if (symbol === 'X') {
-
-                var num = e.target.dataset.num;
-
-                this.board.update(num, symbol);
-
-                this.board.displayBoard();
-                this.play();
-
-            } else {
-
-                currentPlayer.takeAMasterMove(game, symbol);
-
-                if (this.isTerminal()) {
-                    alert(this.result);
-
-                }
-
-
-            }
         }
+
+
     };
 
     this.score = function () {
@@ -72,7 +70,7 @@ function Game(squares) {
         }
     };
 
-    /* NOTE: Win checks are hardcoded for now
+    /* NOTE: Win checks are hardcoded for TicTacToe 
      * public  function that checks if the game is a terminal state or not
      * the state result is updated to reflect the result of the game
      * @returns [Boolean]: true if it's terminal, false otherwise
@@ -119,12 +117,8 @@ function Game(squares) {
 }
 
 
-
-
 (function GameStarter() {
-    var tictactoegame = new Game(3);
+    var tictactoegame = new Game(3); // pass 3 squares for TicTacToe, TODO make isTerminal dependant on squares
     tictactoegame.init();
     tictactoegame.board.displayBoard();
-    // console.log(tictactoegame);
-    // tictactoegame.play();
 })();
