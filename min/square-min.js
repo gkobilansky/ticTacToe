@@ -1,0 +1,1 @@
+function Square(){this.symbol=""}Square.prototype.isOccupied=function(){return""!=this.symbol?!0:!1},Square.prototype.setSymbol=function(t){this.symbol=t},Square.prototype.getSymbol=function(){return this.symbol};
