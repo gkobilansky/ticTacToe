@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <!--   TODO make work on mobile <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>TicTacToe by Lancekey</title>
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="app.css">
@@ -11,8 +12,15 @@
 <body>
 
     <h1>Tic Tac Toe by Lancekey</h1>
+    <div id="gameResult">
+    </div>
+    <button id="reload" class="hidden" onclick="document.location.reload()">Try Again?</button>
+    <p>The Computer AI is unbeatable. The best you can do is tie. Don't believe me? Give it a try!</p>
+    <p>Click Any Square to Play As "X"</p>
+    <button id="compFirst">Click Here to Play As "O" (please wait a few seconds, algorithm is slow on first move).</button>
 
     <div id="game">
+
     </div>
 
     <p><a href="https://github.com/gkobilansky/ticTacToe">Repo</a></p>

@@ -1,12 +1,23 @@
 function Game(squares) {
 
     // setup & handle event listener
+    this.players = [];
+
+
     this.init = function () {
         document.getElementById("game").addEventListener("click", this, false);
+        document.getElementById("compFirst").addEventListener("click", this, false);
     };
 
     this.handleEvent = function (e) {
+
+        if (e.target.id === "compFirst") {
+            this.players[0].name = "comp";
+            this.players[1].name = "human";
+        }
+
         this.play(e);
+
     };
 
 
@@ -14,9 +25,8 @@ function Game(squares) {
     this.board = new Board(squares);
     this.board.buildBoard();
 
-    this.players = [];
-    this.players[0] = new Player('player', 'X');
-    this.players[1] = new Player('opponent', 'O');
+    this.players[0] = new Player('human', 'X');
+    this.players[1] = new Player('comp', 'O');
 
 
     this.getCurrentPlayer = function () {
@@ -27,24 +37,21 @@ function Game(squares) {
     this.play = function (e) {
 
         if (this.isTerminal()) {
-            alert(this.result);
-            window.location.reload();
+            document.getElementById("gameResult").innerText = this.result;
+            document.getElementById('reload').className = '';
             return;
-
         }
 
-        var currentPlayer = this.getCurrentPlayer();
-        var symbol = currentPlayer.symbol;
-        var game = this;
+        const currentPlayer = this.getCurrentPlayer();
+        const name = currentPlayer.name;
+        const symbol = currentPlayer.symbol;
+        const game = this;
 
-        if (symbol === 'X') {
+        if (name === 'human') {
 
             var num = e.target.dataset.num;
-
             this.board.update(num, symbol);
-
             this.board.displayBoard();
-
             this.play();
 
         } else {
@@ -70,7 +77,8 @@ function Game(squares) {
         }
     };
 
-    /* NOTE: Win checks are hardcoded for TicTacToe 
+    /* NOTE: Win checks are hardcoded for TicTacToe
+     * returns result twice for some reason. 
      * public  function that checks if the game is a terminal state or not
      * the state result is updated to reflect the result of the game
      * @returns [Boolean]: true if it's terminal, false otherwise
@@ -107,7 +115,7 @@ function Game(squares) {
         }
         if (filled >= 9) {
             //the game is draw
-            this.result = "draw"; //update the state result
+            this.result = "Draw"; //update the state result
             return true;
         } else {
             return false;

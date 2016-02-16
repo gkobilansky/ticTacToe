@@ -49,9 +49,9 @@ Player.prototype.takeAMasterMove = function (game, symbol) {
     game.board.displayBoard();
 
     if (game.isTerminal()) {
-        alert(game.result);
-        window.location.reload();
-        return;
+        document.getElementById("gameResult").innerText = game.result;
+        document.getElementById('reload').className = '';
+
     }
 
 };
